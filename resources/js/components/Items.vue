@@ -95,7 +95,8 @@
                         .then(response => {
                             console.log(response)
                             this.items = this.items.filter(el => el.id != response.data.data.id)
-                            $('.add-item input').focus();
+                            $('.add-item input').focus()
+                            toastr.success(response.data.msg)
                         })
                         .catch(error => console.log(error)) 
                         .then(() => { // finally
@@ -113,14 +114,17 @@
                     .then(response => {
                         console.log(response)
                         this.updItem = new Item() 
-                        // toastr msg
+                        toastr.success(response.data.msg)
                     })
                     .catch(error => {
                         if (error.response.status == 422) {  // VALIDATION ERROR
                             console.log(error.response)
                             this.updItem.title = error.response.data.data.title
                         }
-                        // toastr msg
+                        var msg = ""
+                        for (var el in error.response.data.msg) 
+                            msg += error.response.data.msg[el] + '<br>' 
+                        toastr.error(msg, '', {timeOut: 10000}) 
                     }) 
                     .then(() => { // finally
                         this.editMode = false
@@ -134,12 +138,16 @@
                         console.log(response)
                         this.items.unshift(response.data.data)
                         this.newItem = new Item() 
+                        toastr.success(response.data.msg)
                     })
                     .catch(error => {
                         if (error.response.status == 422) {  // VALIDATION ERROR
                             console.log(error.response) 
                         }
-                        // toastr msg
+                        var msg = ""
+                        for (var el in error.response.data.msg) 
+                            msg += error.response.data.msg[el] + '<br>' 
+                        toastr.error(msg, '', {timeOut: 10000}) 
                     }) 
                     .then(() => { // finally
                         this.loading.items = false

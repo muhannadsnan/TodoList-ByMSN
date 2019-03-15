@@ -11,7 +11,7 @@ class ItemsController extends Controller
     {
         $t = new Item();
         if (!$t->validate($request->all()))
-            return response()->json(['data' => $item->errors(), 'msg' => $t->errors()], 422);
+            return response()->json(['msg' => $t->errors()], 422);
 
         if(!$item = Item::addObj($request->all()))
             return response()->json(['msg' => 'Error while adding the item!'], 400); 

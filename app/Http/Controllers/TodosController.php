@@ -27,13 +27,13 @@ class TodosController extends Controller
         
     public function store(Request $request)
     { 
-        $todo = new Todo();
-        if (!$todo->validate($request->all()))
-            return response()->json(['data' => $todo->errors(), 'msg' => 'Validation error!'], 422); 
+        $t = new Todo();
+        if (!$t->validate($request->all())) 
+            return response()->json(['msg' => $t->errors()], 422);
             
         if(!$todo = Todo::add($request->all()))
             return response()->json(['msg' => 'Error while adding the todo!'], 400); 
-        return response()->json(['data' => $todo, 'msg' => 'The todo was succussfully added!'], 200); 
+        return response()->json(['data' => $todo, 'msg' => 'The todo list was succussfully added!'], 200); 
     }
     
     public function update(Request $request, Todo $todo)
@@ -47,6 +47,6 @@ class TodosController extends Controller
         if(!$todo->delete())
             return response()->json(['msg' => 'Error while deleting the todo!'], 400); 
         
-        return response()->json(['data' => $todo, 'msg' => 'The todo was succussfully deleted!'], 200); 
+        return response()->json(['data' => $todo, 'msg' => 'The todo list was succussfully deleted!'], 200); 
     }
 }

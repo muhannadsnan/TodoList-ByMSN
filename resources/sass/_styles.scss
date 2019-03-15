@@ -1,8 +1,9 @@
-nav.navbar {
+nav.navbar{
     .navbar-dark .navbar-brand{
         color: red !important;
     }
 }
+
 
 .Todo{
     *.disabled{cursor: not-allowed; color: #aaa}
@@ -31,4 +32,8 @@ nav.navbar {
             }
         }
     }
+}
+
+#toast-container div, .toast {
+    opacity: .9 !important; 
 }

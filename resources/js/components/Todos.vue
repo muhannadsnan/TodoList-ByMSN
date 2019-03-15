@@ -49,12 +49,12 @@
                     axios.delete('http://127.0.0.1:8000/todos/'+todo.id)
                         .then(response => {
                             console.log(response)
-                            this.todos = this.todos.filter(el => el.id != response.data.data.id)
-                            this.items = []
+                            this.todos = this.todos.filter(el => el.id != response.data.data.id) 
                             this.selectedTodo = null
                             $('.add-todo input').focus();
+                            toastr.success(response.data.msg)
                         })
-                        .catch(error => console.log(error)) 
+                        .catch(error => { console.log(error); toastr.success(response.data.msg); }) 
                         .then(() => { // finally
                             this.loading = false
                         })    
@@ -69,12 +69,16 @@
                         this.selectedTodo = response.data.data
                         this.newTodo = new Todo()
                         $('.add-item input').focus();
+                        toastr.success(response.data.msg)
                     })
                     .catch(error => {
                         if (error.response.status == 422) {  // VALIDATION ERROR
                             console.log(error.response) 
                         }
-                        // toastr msg
+                        var msg = ""
+                        for (var el in error.response.data.msg) 
+                            msg += error.response.data.msg[el] + '<br>' 
+                        toastr.error(msg, '', {timeOut: 10000}) 
                     })  
                     .then(() => { // finally
                         this.editMode = false

@@ -3,13 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Todo;
+use App\Item;
 use Illuminate\Http\Request;
 
 class TodosController extends Controller
 {
     public function index()
     { 
-        return view('todos.index', ['todos' => Todo::all()]);        
+        return view('todos.index', ['todos' => Todo::orderBy('id', 'desc')->get()]);        
+    } 
+
+    public function getItemsByTodo(Todo $todo)
+    {  
+        if(!$items = Item::where('todo_id', $todo->id)->orderBy('id', 'desc')->get())
+            return response()->json(['msg' => 'Error while reading items!'], 400); 
+        return response()->json(['data' => $items, 'msg' => 'Items was read successfully!'], 200);        
     } 
    
     public function show(Todo $todo)
@@ -18,8 +26,14 @@ class TodosController extends Controller
     } 
         
     public function store(Request $request)
-    {
-        //
+    { 
+        $todo = new Todo();
+        if (!$todo->validate($request->all()))
+            return response()->json(['data' => $todo->errors(), 'msg' => 'Validation error!'], 422); 
+            
+        if(!$todo = Todo::add($request->all()))
+            return response()->json(['msg' => 'Error while adding the todo!'], 400); 
+        return response()->json(['data' => $todo, 'msg' => 'The todo was succussfully added!'], 200); 
     }
     
     public function update(Request $request, Todo $todo)
@@ -28,7 +42,11 @@ class TodosController extends Controller
     }
 
     public function destroy(Todo $todo)
-    {
-        //
+    {  
+        $todo->_items()->delete();
+        if(!$todo->delete())
+            return response()->json(['msg' => 'Error while deleting the todo!'], 400); 
+        
+        return response()->json(['data' => $todo, 'msg' => 'The todo was succussfully deleted!'], 200); 
     }
 }

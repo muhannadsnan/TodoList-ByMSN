@@ -20,8 +20,10 @@ if (token) {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
+// popups
 $(function () {
     $('[data-toggle="popover"]').popover({
       container: 'body'
     })
+    $('.add-item input').focus();
 })

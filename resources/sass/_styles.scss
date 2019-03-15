@@ -3,3 +3,32 @@ nav.navbar {
         color: red !important;
     }
 }
+
+.Todo{
+    *.disabled{cursor: not-allowed; color: #aaa}
+    min-height: 800px;
+    .fa-trash-alt:hover{
+        color: #dc3545; 
+    }
+    .far{
+        cursor: pointer;
+    }
+    .list-group-item{
+        cursor: pointer;
+    }
+    .Items{
+        .card{
+            .card-body{
+                h5{
+                    margin-bottom: 0 !important; margin-top: 3px;
+                }  
+                .complete{
+                    text-decoration: line-through;
+                }   
+                span{
+                    width: 70px;
+                }           
+            }
+        }
+    }
+}

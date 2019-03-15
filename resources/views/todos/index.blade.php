@@ -2,8 +2,8 @@
 @section('title', 'Todos') 
 
 @section('content') 
-
-    <Todo :todos="{{$todos}}"/>    
+ 
+    <Todos :todos="{{$todos}}"/>
 
 @endsection
 

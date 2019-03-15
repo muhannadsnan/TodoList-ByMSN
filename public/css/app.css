@@ -2,3 +2,37 @@
   color: red !important;
 }
 
+.Todo {
+  min-height: 800px;
+}
+
+.Todo *.disabled {
+  cursor: not-allowed;
+  color: #aaa;
+}
+
+.Todo .fa-trash-alt:hover {
+  color: #dc3545;
+}
+
+.Todo .far {
+  cursor: pointer;
+}
+
+.Todo .list-group-item {
+  cursor: pointer;
+}
+
+.Todo .Items .card .card-body h5 {
+  margin-bottom: 0 !important;
+  margin-top: 3px;
+}
+
+.Todo .Items .card .card-body .complete {
+  text-decoration: line-through;
+}
+
+.Todo .Items .card .card-body span {
+  width: 70px;
+}
+

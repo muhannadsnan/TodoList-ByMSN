@@ -3,7 +3,8 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-Vue.component('Todo', require('./components/Todo.vue').default);
+Vue.component('Todos', require('./components/Todos.vue').default);
+Vue.component('Items', require('./components/Items.vue').default);
 
 const app = new Vue({
     el: '#app'  

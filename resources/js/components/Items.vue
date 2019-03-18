@@ -43,6 +43,7 @@
 
 <script>
     import Item from '../models/Item.class';
+    import Store from '../models/Store';
     export default {
         data() {
             return {
@@ -57,7 +58,7 @@
         methods: {
             getItems(){
                 this.loading.items = true  
-                    axios.get(`http://127.0.0.1:8000/todos/${this.selectedTodo.id}/items`)
+                    axios.get(`${Store.url2}/todos/${this.selectedTodo.id}/items`)
                         .then(response => {
                             console.log(response)
                             this.items = response.data.data 
@@ -73,7 +74,7 @@
                 this.loading.item = item.id  
                 this.updItem = item
                 this.updItem.complete = !this.updItem.complete
-                axios.put(`http://127.0.0.1:8000/items/${this.updItem.id}`, this.updItem)
+                axios.put(`${Store.url2}/items/${this.updItem.id}`, this.updItem)
                     .then(response => {
                         console.log(response)  
                         if(response.status == 200){
@@ -91,7 +92,7 @@
             onDelItem(item){
                 if(confirm('Are you sure to delete item: '+item.title)){
                     this.loading.items = true  
-                    axios.delete(`http://127.0.0.1:8000/items/${item.id}`)
+                    axios.delete(`${Store.url2}/items/${item.id}`)
                         .then(response => {
                             console.log(response)
                             this.items = this.items.filter(el => el.id != response.data.data.id)
@@ -110,7 +111,7 @@
             },
             onKeyEnterTitleEdit(){
                 this.loading.item = this.updItem.id  
-                axios.put(`http://127.0.0.1:8000/items/${this.updItem.id}`, this.updItem)
+                axios.put(`${Store.url2}/items/${this.updItem.id}`, this.updItem)
                     .then(response => {
                         console.log(response)
                         this.updItem = new Item() 
@@ -133,7 +134,7 @@
             },
             onKeyEnterAddItem(){
                 this.loading.items = true  
-                axios.post('http://127.0.0.1:8000/items', {...this.newItem, todo_id: this.selectedTodo.id })
+                axios.post(Store.url2+'/items', {...this.newItem, todo_id: this.selectedTodo.id })
                     .then(response => {
                         console.log(response)
                         this.items.unshift(response.data.data)

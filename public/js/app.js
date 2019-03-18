@@ -1764,6 +1764,7 @@ module.exports = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _models_Item_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../models/Item.class */ "./resources/js/models/Item.class.js");
+/* harmony import */ var _models_Store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../models/Store */ "./resources/js/models/Store.js");
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -1812,6 +1813,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1831,7 +1833,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this = this;
 
       this.loading.items = true;
-      axios.get("http://127.0.0.1:8000/todos/".concat(this.selectedTodo.id, "/items")).then(function (response) {
+      axios.get("".concat(_models_Store__WEBPACK_IMPORTED_MODULE_1__["default"].url2, "/todos/").concat(this.selectedTodo.id, "/items")).then(function (response) {
         console.log(response);
         _this.items = response.data.data;
         $('.add-item input').focus();
@@ -1851,7 +1853,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.loading.item = item.id;
       this.updItem = item;
       this.updItem.complete = !this.updItem.complete;
-      axios.put("http://127.0.0.1:8000/items/".concat(this.updItem.id), this.updItem).then(function (response) {
+      axios.put("".concat(_models_Store__WEBPACK_IMPORTED_MODULE_1__["default"].url2, "/items/").concat(this.updItem.id), this.updItem).then(function (response) {
         console.log(response);
 
         if (response.status == 200) {// toastr
@@ -1870,7 +1872,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       if (confirm('Are you sure to delete item: ' + item.title)) {
         this.loading.items = true;
-        axios.delete("http://127.0.0.1:8000/items/".concat(item.id)).then(function (response) {
+        axios.delete("".concat(_models_Store__WEBPACK_IMPORTED_MODULE_1__["default"].url2, "/items/").concat(item.id)).then(function (response) {
           console.log(response);
           _this3.items = _this3.items.filter(function (el) {
             return el.id != response.data.data.id;
@@ -1893,7 +1895,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this4 = this;
 
       this.loading.item = this.updItem.id;
-      axios.put("http://127.0.0.1:8000/items/".concat(this.updItem.id), this.updItem).then(function (response) {
+      axios.put("".concat(_models_Store__WEBPACK_IMPORTED_MODULE_1__["default"].url2, "/items/").concat(this.updItem.id), this.updItem).then(function (response) {
         console.log(response);
         _this4.updItem = new _models_Item_class__WEBPACK_IMPORTED_MODULE_0__["default"]();
         toastr.success(response.data.msg);
@@ -1923,7 +1925,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this5 = this;
 
       this.loading.items = true;
-      axios.post('http://127.0.0.1:8000/items', _objectSpread({}, this.newItem, {
+      axios.post(_models_Store__WEBPACK_IMPORTED_MODULE_1__["default"].url2 + '/items', _objectSpread({}, this.newItem, {
         todo_id: this.selectedTodo.id
       })).then(function (response) {
         console.log(response);
@@ -1984,6 +1986,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _models_Todo_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../models/Todo.class */ "./resources/js/models/Todo.class.js");
+/* harmony import */ var _models_Store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../models/Store */ "./resources/js/models/Store.js");
 //
 //
 //
@@ -2013,6 +2016,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["todos"],
@@ -2033,7 +2037,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (confirm('Are you sure to delete todo: ' + todo.title)) {
         this.loading = true;
-        axios.delete('http://127.0.0.1:8000/todos/' + todo.id).then(function (response) {
+        axios.delete(_models_Store__WEBPACK_IMPORTED_MODULE_1__["default"].url2 + '/todos/' + todo.id).then(function (response) {
           console.log(response);
           _this.todos = _this.todos.filter(function (el) {
             return el.id != response.data.data.id;
@@ -2054,7 +2058,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       this.loading = true;
-      axios.post('http://127.0.0.1:8000/todos', this.newTodo).then(function (response) {
+      axios.post(_models_Store__WEBPACK_IMPORTED_MODULE_1__["default"].url2 + '/todos', this.newTodo).then(function (response) {
         console.log(response);
 
         _this2.todos.unshift(response.data.data);
@@ -51080,6 +51084,17 @@ var Item = function Item() {
 };
 
 
+
+/***/ }),
+
+/***/ "./resources/js/models/Store.js":
+/*!**************************************!*\
+  !*** ./resources/js/models/Store.js ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, exports) {
+
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: C:\\Users\\MSN\\Documents\\Docs\\www\\PHP\\Cloudmaster-Laravel\\resources\\js\\models\\Store.js: Unexpected token, expected \";\" (5:21)\n\n\u001b[0m \u001b[90m 3 | \u001b[39m    url2\u001b[33m:\u001b[39m \u001b[32m'http://178.128.248.238'\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 4 | \u001b[39m}\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 5 | \u001b[39m\u001b[36mexport\u001b[39m \u001b[36mdefault\u001b[39m store {}\u001b[0m\n\u001b[0m \u001b[90m   | \u001b[39m                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n    at Parser.raise (C:\\Users\\MSN\\Documents\\Docs\\www\\PHP\\Cloudmaster-Laravel\\node_modules\\@babel\\parser\\lib\\index.js:3831:17)\n    at Parser.unexpected (C:\\Users\\MSN\\Documents\\Docs\\www\\PHP\\Cloudmaster-Laravel\\node_modules\\@babel\\parser\\lib\\index.js:5143:16)\n    at Parser.semicolon (C:\\Users\\MSN\\Documents\\Docs\\www\\PHP\\Cloudmaster-Laravel\\node_modules\\@babel\\parser\\lib\\index.js:5131:40)\n    at Parser.parseExportDefaultExpression (C:\\Users\\MSN\\Documents\\Docs\\www\\PHP\\Cloudmaster-Laravel\\node_modules\\@babel\\parser\\lib\\index.js:8406:12)\n    at Parser.parseExport (C:\\Users\\MSN\\Documents\\Docs\\www\\PHP\\Cloudmaster-Laravel\\node_modules\\@babel\\parser\\lib\\index.js:8299:31)\n    at Parser.parseStatementContent (C:\\Users\\MSN\\Documents\\Docs\\www\\PHP\\Cloudmaster-Laravel\\node_modules\\@babel\\parser\\lib\\index.js:7347:27)\n    at Parser.parseStatement (C:\\Users\\MSN\\Documents\\Docs\\www\\PHP\\Cloudmaster-Laravel\\node_modules\\@babel\\parser\\lib\\index.js:7243:17)\n    at Parser.parseBlockOrModuleBlockBody (C:\\Users\\MSN\\Documents\\Docs\\www\\PHP\\Cloudmaster-Laravel\\node_modules\\@babel\\parser\\lib\\index.js:7810:25)\n    at Parser.parseBlockBody (C:\\Users\\MSN\\Documents\\Docs\\www\\PHP\\Cloudmaster-Laravel\\node_modules\\@babel\\parser\\lib\\index.js:7797:10)\n    at Parser.parseTopLevel (C:\\Users\\MSN\\Documents\\Docs\\www\\PHP\\Cloudmaster-Laravel\\node_modules\\@babel\\parser\\lib\\index.js:7181:10)\n    at Parser.parse (C:\\Users\\MSN\\Documents\\Docs\\www\\PHP\\Cloudmaster-Laravel\\node_modules\\@babel\\parser\\lib\\index.js:8660:17)\n    at parse (C:\\Users\\MSN\\Documents\\Docs\\www\\PHP\\Cloudmaster-Laravel\\node_modules\\@babel\\parser\\lib\\index.js:10660:38)\n    at parser (C:\\Users\\MSN\\Documents\\Docs\\www\\PHP\\Cloudmaster-Laravel\\node_modules\\@babel\\core\\lib\\transformation\\normalize-file.js:170:34)\n    at normalizeFile (C:\\Users\\MSN\\Documents\\Docs\\www\\PHP\\Cloudmaster-Laravel\\node_modules\\@babel\\core\\lib\\transformation\\normalize-file.js:138:11)\n    at runSync (C:\\Users\\MSN\\Documents\\Docs\\www\\PHP\\Cloudmaster-Laravel\\node_modules\\@babel\\core\\lib\\transformation\\index.js:44:43)\n    at runAsync (C:\\Users\\MSN\\Documents\\Docs\\www\\PHP\\Cloudmaster-Laravel\\node_modules\\@babel\\core\\lib\\transformation\\index.js:35:14)\n    at process.nextTick (C:\\Users\\MSN\\Documents\\Docs\\www\\PHP\\Cloudmaster-Laravel\\node_modules\\@babel\\core\\lib\\transform.js:34:34)\n    at process._tickCallback (internal/process/next_tick.js:61:11)");
 
 /***/ }),
 

@@ -29,6 +29,7 @@
 
 <script>
     import Todo from '../models/Todo.class';
+    import Store from '../models/Store';
     export default {
         props: ["todos"],
         data() {
@@ -46,7 +47,7 @@
             onDelTodo(todo){
                 if(confirm('Are you sure to delete todo: '+todo.title)){
                     this.loading = true  
-                    axios.delete('http://127.0.0.1:8000/todos/'+todo.id)
+                    axios.delete(Store.url2+'/todos/'+todo.id)
                         .then(response => {
                             console.log(response)
                             this.todos = this.todos.filter(el => el.id != response.data.data.id) 
@@ -62,7 +63,7 @@
             }, 
             onKeyEnterAddTodo(){
                 this.loading = true  
-                axios.post('http://127.0.0.1:8000/todos', this.newTodo)
+                axios.post(Store.url2+'/todos', this.newTodo)
                     .then(response => {
                         console.log(response)
                         this.todos.unshift(response.data.data)

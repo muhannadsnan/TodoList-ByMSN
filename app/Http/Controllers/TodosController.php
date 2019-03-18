@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class TodosController extends Controller
 {
+    public function home()
+    { 
+        return redirect()->route('home');
+    } 
+
     public function index()
     { 
         return view('todos.index', ['todos' => Todo::orderBy('id', 'desc')->get()]);        

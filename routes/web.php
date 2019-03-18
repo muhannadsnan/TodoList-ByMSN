@@ -1,5 +1,7 @@
 <?php
 
+
+Route::get('/', 'TodosController@home');
 Route::get('/todos', 'TodosController@index')->name('home');
 Route::post('/todos', 'TodosController@store');
 Route::get('/todos/{todo}', 'TodosController@show');
